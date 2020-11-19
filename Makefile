@@ -1,0 +1,3 @@
+
+f format:
+	swiftformat .

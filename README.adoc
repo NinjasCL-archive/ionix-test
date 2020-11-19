@@ -1,0 +1,73 @@
+# IONIX Challenge iOS
+
+The following document provides solutions to the provided exercises.
+By _Camilo Castro_ <camilo@ninjas.cl>.
+
+## Exercise 1
+
+It was provided a solution focused on a modular approach. Using new technologies such as Swift Package Manager and Combine. It is lacking a proper user interface and separation of concerns in the main controller,  but the main functionality was completed.
+
+## Exercise 2
+
+For this use case we have to use several techniques to ensure that the data is not leaked to third parties.
+
+### Step 1: Merkle Tree
+
+First the mobile client should generate a document. Let’s assume it’s a _JSON_ formatted document with the following spec.
+
+```json
+{
+    "name": "Camilo",
+    "phone":  "1234",
+    "createdAt": "2020-08-11T09:40:09+0000"
+}
+```
+
+The first technique is creating a _Merkle Tree_ (https://en.wikipedia.org/wiki/Merkle_tree) to ensure data integrity. We take each field and compute an individual hash for its value, then a hash for the whole document string.
+
+It will generate a similar structure to the following
+
+```json
+{
+    "name": "6cf8a4b51b499005cf691527dc9cb9c3a76f8ea8",
+    "phone": "1be168ff837f043bde17c0314341c84271047b31",
+    "createdAt": "20ca1d4033f4c0f430c06cdb6c5b73a526503e4f",
+    "document": "5d9a2200a45810e042d2d566830dcefad12d5612"
+}
+```
+
+This will make the document *tamper evident*. If someone manages to alter the data we can detect changes
+easily with the hashes. It can be added a _JWT_ (https://jwt.io/) for additional info and standarized validation of the request.
+
+### Step 2: AES Symetric Encryption
+
+The _Advanced Encryption Standard_ (https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) will be used for simple communication. Each member would have a secret key that is known to both _Mobile_ and _Authorizer_. This is not the final encryption, but mainly to encrypt communication to the _Authorizer server_ for specific data. The secret key is already present in the mobile and the _Authorizer server_.
+
+We need to obtain the keys for the next step.
+
+The _Mobile_ client will request to the _Authorizer server_ a public key. This request will be encrypted with _AES_. The server will respond with a new public key (also encrypted with _AES_ and the _Mobile_ should decrypt to use it). On every new request a new public key should be requested.
+
+_Mobile_ is only requesting the public key of the server, is not sending any critical data.
+
+### Step 3: Diffie-Hellman-Merkle Asymetric Encryption
+
+Now _Mobile_ have the public key of the _Authorizer_ for this new request. Now we can use _Diffie-Hellman-Merkle_ key exchange strategy (https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange) to encrypt the message with the _Authorizer_ public key.
+
+
+### Step 4: Sending encrypted data
+
+We now have an encrypted message. For more security we can encrypt the message again. But this time
+with the shared _AES_ key. Finally we can _Gzip_ (https://en.wikipedia.org/wiki/Gzip) the message for additional compression.
+
+The _Authorizer_ then would have to follow these steps:
+
+. Unzip the content.
+. Decrypt with shared _AES_ key.
+. Decrypt with private key.
+. Check JWT.
+. Check Merkle tree hashes.
+. Do any additional security checks.
+
+### Step 5: Additional Security
+
+We can use several techniques depending on the context. For example _SSL Pining_ (https://www.ibm.com/support/knowledgecenter/SSHSCD_7.1.0/com.ibm.worklight.dev.doc/monitor/c_cert_pinning_intro.html).

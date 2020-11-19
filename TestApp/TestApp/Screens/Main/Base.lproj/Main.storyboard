@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--{MainController}-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController title="MainController" id="BYZ-38-t0r" userLabel="{MainController}" customClass="MainViewController" customModule="TestApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="{mainView}">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainBG" translatesAutoresizingMaskIntoConstraints="NO" id="K5r-NI-ll9" userLabel="{backgroundImage}">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="K5r-NI-ll9" secondAttribute="height" multiplier="207:448" id="Dhx-b8-mFu"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAz-1c-0Z2" userLabel="{easyPayButton}">
+                                <rect key="frame" x="78" y="692" width="258" height="104"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="104" id="7NU-ED-3yK"/>
+                                    <constraint firstAttribute="width" constant="258" id="WA1-Ek-9OW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Pago Fácil">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="easyPayButtonWasTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WFU-K9-lll"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="K5r-NI-ll9" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0RC-C0-khW"/>
+                            <constraint firstAttribute="bottom" secondItem="K5r-NI-ll9" secondAttribute="bottom" id="Nox-yU-vHa"/>
+                            <constraint firstAttribute="trailing" secondItem="K5r-NI-ll9" secondAttribute="trailing" id="bcy-Ao-Ejp"/>
+                            <constraint firstItem="YAz-1c-0Z2" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-66" id="f9R-wb-UvF"/>
+                            <constraint firstItem="YAz-1c-0Z2" firstAttribute="centerX" secondItem="K5r-NI-ll9" secondAttribute="centerX" id="xfY-yu-6pq"/>
+                            <constraint firstItem="K5r-NI-ll9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yhZ-MM-7dD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133.33333333333334" y="68.973214285714278"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="MainBG" width="853.33331298828125" height="480"/>
+    </resources>
+</document>
